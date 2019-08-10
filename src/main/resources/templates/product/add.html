@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
+	<title>GDM: Add New Product</title>
+</head>
+
+<body>
+	<div class = "container">
+	<h1 class = "shadow-lg p-3 mb-2 bg-info rounded text-white">Welcome to Golden Dome Market (GDM)</h1>
+	</div>	
+	<nav aria-label="breadcrumb" class = "container">
+		  <ol class="breadcrumb">
+		    <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+		    <li class="breadcrumb-item"><a th:href="@{/supplier/list}">Suppliers</a></li>
+		    <li class="breadcrumb-item"><a th:href="@{/product/list}">Products</a></li>
+		    <li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+		  </ol>
+		</nav>
+		
+		<h1 class = "container">Add New Product</h1>
+		<div class = "container">
+		<form id="productRegistrationForm" method="post" action="/product/add" th:object="${product}">
+            <fieldset >
+                <input type="hidden" name="productId" th:value="${product.productId}"/>                
+                <div class="row">
+                <div class="col-md-4">
+	                <div class="form-group">
+	                    <label for="supplier">Supplier:</label>
+	                    <span th:if="${#fields.hasErrors('supplier')}" th:errors="*{supplier}"
+	                          class="alert alert-danger"></span>
+	                    <select name="supplier" id="supplier" class="form-control" required="required" autofocus>
+	                        <option value="">Select a Supplier</option>
+	                        <option th:each="supplier : ${suppliers}" th:value="${supplier.supplierId}" th:text="${supplier.name}"></option>
+	                    </select>
+	                </div>
+                </div>
+                
+                	<div class="col-md-4">
+                        <div class="form-group">
+                            <label for="productNumber">Product Number</label>
+                            <span th:if="${#fields.hasErrors('productNumber')}" th:errors="*{productNumber}"
+                                  class="alert alert-danger"></span>
+                            <input id="productNumber" name="productNumber" type="text" class="form-control" 
+                            		aria-describedby="productNumberHelp" placeholder="000000"
+                                   	pattern="[0-9]{6}"
+                           			th:value="${product.productNumber}">
+                        </div>
+                    </div>            
+                   
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Product Name</label>
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                  class="alert alert-danger"></span>
+                            <input id="name" name="name" type="text" class="form-control"
+                                   th:value="${product.name}">
+                        </div>
+                    </div>               
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="unitPrice">Unit Price</label>                          
+                            <input id="unitPrice" name="unitPrice" type="text" class="form-control"
+                                   th:value="${product.unitPrice}">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="quantityInStock">Quantity In Stock</label>
+                            <span th:if="${#fields.hasErrors('quantityInStock')}" th:errors="*{quantityInStock}"
+                                  class="alert alert-danger"></span>
+                            <input id="quantityInStock" name="quantityInStock" type="text" class="form-control"
+                                   th:value="${product.quantityInStock}">
+                        </div>
+                    </div>
+    			</div>
+               
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="dateSupplied">Date Supplied</label>
+                            <span th:if="${#fields.hasErrors('dateSupplied')}" th:errors="*{dateSupplied}"
+                                      class="alert alert-danger"></span>
+                            <input id="dateSupplied" name="dateSupplied" type="date" class="form-control"
+                                   th:value="${product.dateSupplied}">
+                        </div>
+                    </div>
+                    
+                </div>
+				
+                <div style="float:left;">
+                    <a th:href="@{/product/list}" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp; 
+                    <!-- <button id="btnSubmit" type="submit" class="btn btn-outline-success">Add Product</button>-->
+                     <input type="submit" id="btnSubmit" class="btn btn-outline-success" th:value="Save"> 
+       				<!-- <input type="reset" id="resetButton" name="reset" th:value="Reset"/>  -->
+                </div>
+            </fieldset>
+        </form>
+        </div>
+</body>
+</html>
